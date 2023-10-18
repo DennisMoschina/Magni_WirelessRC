@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <NimBLEDevice.h>
-#include <config.h>
+#include "config.h"
 #include "Communicator.h"
 
 class BLECommunicator: public Communicator {
@@ -33,7 +33,7 @@ private:
 
     NimBLECharacteristic* nearestWallCharacteristic;
     NimBLECharacteristic* batteryVoltageCharacteristic;
-    NimBLECharacteristic* engineEnabledCharacteristic;
+    NimBLECharacteristic* engineEnabledRegCharacteristic;
     NimBLECharacteristic* errorCodeCharacteristic;
     NimBLECharacteristic* motorPWMCharacteristic;
     NimBLECharacteristic* motorDirectionCharacteristic;
@@ -42,6 +42,7 @@ private:
     NimBLECharacteristic* joystickForwardCharacteristic;
     NimBLECharacteristic* joystickRightCharacteristic;
     NimBLECharacteristic* debugModeCharacteristic;
+    NimBLECharacteristic* enableEngineCharacteristic;
 
     NimBLEAdvertising* advertising;
 };

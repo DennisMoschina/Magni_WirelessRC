@@ -32,7 +32,7 @@ void UserInterface::setRegEngineEnabled(bool enabled) {
     this->engineEnabled = enabled;
 }
 
-void UserInterface::enableDebugMode(bool enabled = true) {
+void UserInterface::enableDebugMode(bool enabled) {
     this->debugModeEnabled = enabled;
 }
 

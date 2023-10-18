@@ -21,7 +21,7 @@
 
 class RemoteControl {
 public:
-    RemoteControl(GlobalTime& time, UserInterface& ui);
+    RemoteControl(GlobalTime& time, UserInterface& ui, Communication& com);
 
     /**
      * @brief Create tasks for reading user input and controlling the car.

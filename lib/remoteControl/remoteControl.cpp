@@ -19,9 +19,10 @@ void uiLoopExternal(void* param) {
     }
 }
 
-RemoteControl::RemoteControl(GlobalTime& time, UserInterface& ui) {
+RemoteControl::RemoteControl(GlobalTime& time, UserInterface& ui, Communication& com) {
     this->time = &time;
     this->ui = &ui;
+    this->com = com;
 
     com.init(UART_BAUDRATE, UART_CONFIG, time);
 }
@@ -86,6 +87,7 @@ void RemoteControl::uartReceive() {
     if(min(time->getTimeMS() - lastErrorPacketTimestamp, time->getTimeMS() - lastStatusPacketTimestamp) > COMMUNICATION_TIMEOUT_MS) {
         // Communication time out since no packet was received.
         // TODO: Handle error
+        this->ui->setErrorCode(0x2);
     }
 }
 
@@ -105,7 +107,7 @@ void RemoteControl::controlLoop() {
     this->control_data.joystickRightVal = this->ui->getJoystickRightVal();
     this->control_data.engineEnabled = this->ui->getEngineEnabled();
     this->control_data.debugModeEnabled = this->ui->isDebugModeEnabled();
-    uartSend();
+    this->uartSend();
 }
 
 void RemoteControl::uiLoop() {

@@ -1,4 +1,5 @@
 #include "BLECommunicator.h"
+#include <config.h>
 
 BLECommunicator::BLECommunicator(const char* deviceName) {
     this->deviceName = deviceName;
@@ -31,15 +32,32 @@ BLECommunicator::BLECommunicator(const char* deviceName) {
         MOTOR_BRAKE_CHARACTERISTIC_UUID,
         NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
     );
-    this->engineEnabledCharacteristic = this->service->createCharacteristic(
-        ENGINE_ENABLED_CHARACTERISTIC_UUID,
+    this->engineEnabledRegCharacteristic = this->service->createCharacteristic(
+        ENGINE_ENABLED_REG_CHARACTERISTIC_UUID,
         NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
+    );
+
+    this->joystickForwardCharacteristic = this->service->createCharacteristic(
+        JOYSTICK_FORWARD_CHARACTERISTIC_UUID,
+        NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
+    );
+    this->joystickRightCharacteristic = this->service->createCharacteristic(
+        JOYSTICK_RIGHT_CHARACTERISTIC_UUID,
+        NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
+    );
+    this->debugModeCharacteristic = this->service->createCharacteristic(
+        DEBUG_MODE_CHARACTERISTIC_UUID,
+        NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
+    );
+    this->enableEngineCharacteristic = this->service->createCharacteristic(
+        ENABLE_ENGINE_CHARACTERISTIC_UUID,
+        NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
     );
 
     this->service->start();
 
-    this->advertising->addServiceUUID(BLE_SERVICE_UUID);
     this->advertising = NimBLEDevice::getAdvertising();
+    this->advertising->addServiceUUID(BLE_SERVICE_UUID);
 }
 
 void BLECommunicator::advertise() {
@@ -94,6 +112,6 @@ void BLECommunicator::setMotorDirection(bool left, bool right) {
     this->motorDirectionCharacteristic->notify();
 }
 void BLECommunicator::setEngineEnabled(bool enabled) {
-    this->engineEnabledCharacteristic->setValue(enabled);
-    this->engineEnabledCharacteristic->notify();
+    this->engineEnabledRegCharacteristic->setValue(enabled);
+    this->engineEnabledRegCharacteristic->notify();
 }

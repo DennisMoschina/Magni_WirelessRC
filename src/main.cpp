@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#include <config.h>
 #include <BLECommunicator.h>
 #include <CommunicatorUI.h>
 #include <Communicator.h>
@@ -10,12 +11,14 @@
 void setup() {
   GlobalTime* time = new GlobalTime();
 
-  BLECommunicator* com = new BLECommunicator(DEVICE_NAME);
-  UserInterface* ui = new CommunicatorUI(com);
+  BLECommunicator* bleCom = new BLECommunicator(DEVICE_NAME);
+  UserInterface* ui = new CommunicatorUI(bleCom);
 
-  RemoteControl* rc = new RemoteControl(*time, *ui);
+  Communication* com = new Communication();
 
-  com->advertise();
+  RemoteControl* rc = new RemoteControl(*time, *ui, *com);
+
+  bleCom->advertise();
   rc->startControlling();
 }
 
