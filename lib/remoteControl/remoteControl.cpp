@@ -19,7 +19,7 @@ void uiLoopExternal(void* param) {
     }
 }
 
-void RemoteControl::init(GlobalTime& time, UserInterface& ui) {
+RemoteControl::RemoteControl(GlobalTime& time, UserInterface& ui) {
     this->time = &time;
     this->ui = &ui;
 
@@ -121,7 +121,7 @@ void RemoteControl::uiLoop() {
     this->ui->setNearestWall(this->status_data.directionToNearestWall, this->status_data.distanceToNearestWall);
     this->ui->setMotorBrake(this->status_data.brakeLeft, this->status_data.brakeRight);
     this->ui->setMotorDirection(this->status_data.dirLeft, this->status_data.dirRight);
-    this->ui->setEngineEnabled(this->status_data.engineEnabled);
+    this->ui->setRegEngineEnabled(this->status_data.engineEnabled);
 
     this->newStatusDataAvailable = false;
     this->ui->show();

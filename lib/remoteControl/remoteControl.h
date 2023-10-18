@@ -17,11 +17,15 @@
 #include "config.h"
 #include "communication.h"
 #include "globaltime.hpp"
-#include "UserInterface/UserInterface.h"
+#include "UserInterface.h"
 
 class RemoteControl {
 public:
-    void init(GlobalTime& time, UserInterface& ui);
+    RemoteControl(GlobalTime& time, UserInterface& ui);
+
+    /**
+     * @brief Create tasks for reading user input and controlling the car.
+     */
     void startControlling();
     void stopControlling();
 

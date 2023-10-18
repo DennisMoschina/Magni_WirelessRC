@@ -3,12 +3,27 @@
 
 #include <stdint.h>
 #include <NimBLEDevice.h>
-#include "../config.h"
+#include <config.h>
+#include "Communicator.h"
 
-class BLECommunicator {
+class BLECommunicator: public Communicator {
 public:
     BLECommunicator(const char* deviceName);
     void advertise();
+    void stopAdvertising();
+
+    int8_t getJoystickRightVal();
+    int8_t getJoystickForwardVal();
+    bool getEngineEnabled();
+    bool isDebugModeEnabled();
+
+    void setNearestWall(uint8_t direction, uint8_t distance);
+    void setBatteryVoltage(uint16_t voltage);
+    void setErrorCode(uint8_t errorCode);
+    void setMotorPWM(uint8_t left, uint8_t right);
+    void setMotorBrake(bool left, bool right);
+    void setMotorDirection(bool left, bool right);
+    void setEngineEnabled(bool enabled);
 
 private:
     const char* deviceName;
@@ -27,6 +42,8 @@ private:
     NimBLECharacteristic* joystickForwardCharacteristic;
     NimBLECharacteristic* joystickRightCharacteristic;
     NimBLECharacteristic* debugModeCharacteristic;
+
+    NimBLEAdvertising* advertising;
 };
 
 #endif  // _BLE_COMMUNICATOR_H_

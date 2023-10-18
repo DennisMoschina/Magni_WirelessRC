@@ -36,8 +36,64 @@ BLECommunicator::BLECommunicator(const char* deviceName) {
         NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY
     );
 
+    this->service->start();
 
+    this->advertising->addServiceUUID(BLE_SERVICE_UUID);
+    this->advertising = NimBLEDevice::getAdvertising();
 }
 
 void BLECommunicator::advertise() {
+    this->advertising->start();
+}
+
+void BLECommunicator::stopAdvertising() {
+    this->advertising->stop();
+}
+
+
+int8_t BLECommunicator::getJoystickRightVal() {
+    return this->joystickRightCharacteristic->getValue<int8_t>();
+}
+int8_t BLECommunicator::getJoystickForwardVal() {
+    return this->joystickForwardCharacteristic->getValue<int8_t>();
+}
+bool BLECommunicator::getEngineEnabled() {
+    //TODO: add extra characteristic for enabling engines
+    return true;
+}
+bool BLECommunicator::isDebugModeEnabled() {
+    return this->debugModeCharacteristic->getValue<bool>();
+}
+
+void BLECommunicator::setNearestWall(uint8_t direction, uint8_t distance) {
+    uint16_t value = (uint16_t)direction << 8 | distance;
+    this->nearestWallCharacteristic->setValue(value);
+    this->nearestWallCharacteristic->notify();
+}
+void BLECommunicator::setBatteryVoltage(uint16_t voltage) {
+    this->batteryVoltageCharacteristic->setValue(voltage);
+    this->batteryVoltageCharacteristic->notify();
+}
+void BLECommunicator::setErrorCode(uint8_t errorCode) {
+    this->errorCodeCharacteristic->setValue(errorCode);
+    this->errorCodeCharacteristic->notify();
+}
+void BLECommunicator::setMotorPWM(uint8_t left, uint8_t right) {
+    uint16_t value = (uint16_t)left << 8 | right;
+    this->motorPWMCharacteristic->setValue(value);
+    this->motorPWMCharacteristic->notify();
+}
+void BLECommunicator::setMotorBrake(bool left, bool right) {
+    uint8_t value = (uint8_t)left << 1 | right;
+    this->motorBrakeCharacteristic->setValue(value);
+    this->motorBrakeCharacteristic->notify();
+}
+void BLECommunicator::setMotorDirection(bool left, bool right) {
+    uint8_t value = (uint8_t)left << 1 | right;
+    this->motorDirectionCharacteristic->setValue(value);
+    this->motorDirectionCharacteristic->notify();
+}
+void BLECommunicator::setEngineEnabled(bool enabled) {
+    this->engineEnabledCharacteristic->setValue(enabled);
+    this->engineEnabledCharacteristic->notify();
 }

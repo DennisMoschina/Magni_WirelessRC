@@ -11,7 +11,7 @@ public:
     void setMotorPWM(uint8_t left, uint8_t right);
     void setMotorBrake(bool left, bool right);
     void setMotorDirection(bool left, bool right);
-    void setEngineEnabled(bool enabled);
+    void setRegEngineEnabled(bool enabled);
 
     void enableDebugMode(bool enabled = true);
 
@@ -34,9 +34,8 @@ protected:
     bool motorBrakeRight = false;
     bool motorDirectionLeft = false;
     bool motorDirectionRight = false;
-    bool engineEnabled = false;
+    bool regEngineEnabled = false;
 
-private:
     int8_t joystickRightVal = 0;
     int8_t joystickForwardVal = 0;
     bool engineEnabled = false;

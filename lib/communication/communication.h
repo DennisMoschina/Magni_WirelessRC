@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "globaltime.hpp"
+#include <globaltime.hpp>
 
 /**
  * Implementation of a packet communication mechanism using headers and a checksum.

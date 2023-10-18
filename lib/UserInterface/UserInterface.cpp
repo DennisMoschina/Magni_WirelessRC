@@ -28,7 +28,7 @@ void UserInterface::setMotorDirection(bool left, bool right) {
     this->motorDirectionRight = right;
 }
 
-void UserInterface::setEngineEnabled(bool enabled) {
+void UserInterface::setRegEngineEnabled(bool enabled) {
     this->engineEnabled = enabled;
 }
 
