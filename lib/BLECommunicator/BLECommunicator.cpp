@@ -69,6 +69,10 @@ void BLECommunicator::stopAdvertising() {
 }
 
 
+bool BLECommunicator::isConnected() {
+    return this->server->getConnectedCount() > 0;
+}
+
 int8_t BLECommunicator::getJoystickRightVal() {
     return this->joystickRightCharacteristic->getValue<int8_t>();
 }

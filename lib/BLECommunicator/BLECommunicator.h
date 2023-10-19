@@ -12,6 +12,8 @@ public:
     void advertise();
     void stopAdvertising();
 
+    bool isConnected();
+
     int8_t getJoystickRightVal();
     int8_t getJoystickForwardVal();
     bool getEngineEnabled();

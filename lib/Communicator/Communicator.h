@@ -5,6 +5,8 @@
 
 class Communicator {
 public:
+    virtual bool isConnected() = 0;
+
     virtual int8_t getJoystickRightVal() = 0;
     virtual int8_t getJoystickForwardVal() = 0;
     virtual bool getEngineEnabled() = 0;
