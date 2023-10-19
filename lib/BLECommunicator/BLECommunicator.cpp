@@ -81,7 +81,7 @@ int8_t BLECommunicator::getJoystickForwardVal() {
 }
 bool BLECommunicator::getEngineEnabled() {
     //TODO: add extra characteristic for enabling engines
-    return true;
+    return this->isConnected() && this->enableEngineCharacteristic->getValue<bool>();
 }
 bool BLECommunicator::isDebugModeEnabled() {
     return this->debugModeCharacteristic->getValue<bool>();
