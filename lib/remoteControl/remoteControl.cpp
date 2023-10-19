@@ -92,8 +92,12 @@ void RemoteControl::uartReceive() {
 }
 
 void RemoteControl::startControlling() {
+    log_i("Starting control loop");
+
     xTaskCreate(controlLoopExternal, "RC Control Loop", 2048, this, 1, this->controlLoopTaskHandle);
     xTaskCreate(uiLoopExternal, "RC UI Loop", 2048, this, 1, this->uiLoopTaskHandle);
+
+    log_d("Control loop started");
 }
 
 void RemoteControl::stopControlling() {
